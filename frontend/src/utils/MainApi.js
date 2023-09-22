@@ -1,8 +1,8 @@
 import { checkResponse } from "./utils"
 
-// export const BASE_URL = "http://localhost:3000"
+export const BASE_URL = "http://localhost:3000"
 
-export const BASE_URL = 'https://api.epkondrateva.nomoredomainsicu.ru';
+// export const BASE_URL = 'https://api.epkondrateva.nomoredomainsicu.ru';
 
 // метод делает запрос серверу и получает данные профиля
 export const getUserInfo = () => {
