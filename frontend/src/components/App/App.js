@@ -214,7 +214,7 @@ function App() {
           console.log(err)
         })
     }
-  }, [isLoggedIn, navigate])
+  }, [isLoggedIn])
 
   useEffect(() => {
     function closeByEscape(evt) {
