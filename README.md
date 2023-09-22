@@ -6,9 +6,9 @@ light-2
 
 ### Ccылка на проекта и IP
 
-IP 
+IP 158.160.22.20
 
-Frontend 
+Frontend https://epkondrateva.nomoredomainsicu.ru
 
 ### Ссылка на репозиторий
 
