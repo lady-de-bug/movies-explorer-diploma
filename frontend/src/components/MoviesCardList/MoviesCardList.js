@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react"
-import "./MoviesCardList.css"
-import MoviesCard from "../MoviesCard/MoviesCard"
+import React, { useEffect, useState } from 'react';
+import './MoviesCardList.css';
+import MoviesCard from '../MoviesCard/MoviesCard';
 import {
   DESKTOP_DISPLAY_LIMIT,
   TABLET_DISPLAY_LIMIT,
   MOBILE_DISPLAY_LIMIT,
-} from "../../utils/constants"
-import SearchError from "../SearchError/SearchError"
-import Preloader from "../Preloader/Preloader"
-import { useLocation } from "react-router-dom"
+} from '../../utils/constants';
+import SearchError from '../SearchError/SearchError';
+import Preloader from '../Preloader/Preloader';
+import { useLocation } from 'react-router-dom';
 
 function MoviesCardList({
   cards,
@@ -20,64 +20,66 @@ function MoviesCardList({
   handleLikeFilm,
   onDeleteCard,
 }) {
-  const [shownMovies, setShownMovies] = useState(0)
-  const { pathname } = useLocation()
+  const [shownMovies, setShownMovies] = useState(0);
+  const { pathname } = useLocation();
 
   // Определяет количество отображаемых карточек в зависимости от размера экрана
   function showCounterMovie() {
-    const display = window.innerWidth
+    const display = window.innerWidth;
     if (display > 1279) {
-      setShownMovies(16) // 16
+      setShownMovies(16); // 16
     } else if (display > 767) {
-      setShownMovies(8) // 8
+      setShownMovies(8); // 8
     } else {
-      setShownMovies(5) // 5
+      setShownMovies(5); // 5
     }
   }
 
   useEffect(() => {
-    showCounterMovie()
-  }, [cards])
+    showCounterMovie();
+  }, [cards]);
 
   // Увеличивает количество отображаемых карточек при нажатии на кнопку "Ещё"
   function showPlayMovieButton() {
-    const display = window.innerWidth
+    const display = window.innerWidth;
     if (display > 1278) {
-      setShownMovies(shownMovies + DESKTOP_DISPLAY_LIMIT) // 4
+      setShownMovies(shownMovies + DESKTOP_DISPLAY_LIMIT); // 4
     } else if (display > 767) {
-      setShownMovies(shownMovies + TABLET_DISPLAY_LIMIT) // 2
+      setShownMovies(shownMovies + TABLET_DISPLAY_LIMIT); // 2
     } else {
-      setShownMovies(shownMovies + MOBILE_DISPLAY_LIMIT) // 2
+      setShownMovies(shownMovies + MOBILE_DISPLAY_LIMIT); // 2
     }
   }
 
   useEffect(() => {
     setTimeout(() => {
-      window.addEventListener("resize", showCounterMovie)
-    }, 500)
-  })
-
+      window.addEventListener('resize', showCounterMovie);
+    }, 500);
+    return () => {
+      window.removeEventListener('resize', showCounterMovie);
+    };
+  });
   // Возвращает сохраненную карточку фильма из массива сохраненных фильмов
   function getSavedMovie(savedMovies, card) {
-    return savedMovies.find((savedMovie) => savedMovie.movieId === card.id)
+    return savedMovies.find((savedMovie) => savedMovie.movieId === card.id);
   }
   return (
     <>
       <section className="movies">
         {isLoading && <Preloader />}
         {isNotFound && !isLoading && (
-          <SearchError errorText={"Ничего не найдено"} />
+          <SearchError errorText={'Ничего не найдено'} />
         )}
         {isReqError && !isLoading && (
           <SearchError
             errorText={
-              "Во время поискового запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+              'Во время поискового запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
             }
           />
         )}
         {!isLoading && !isReqError && !isNotFound && (
           <>
-            {pathname === "/saved-movies" ? (
+            {pathname === '/saved-movies' ? (
               <>
                 <ul className="movies__list">
                   {cards.map((card) => (
@@ -120,7 +122,7 @@ function MoviesCardList({
                       Ещё
                     </button>
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               </>
@@ -129,7 +131,7 @@ function MoviesCardList({
         )}
       </section>
     </>
-  )
+  );
 }
 
-export default MoviesCardList
+export default MoviesCardList;
