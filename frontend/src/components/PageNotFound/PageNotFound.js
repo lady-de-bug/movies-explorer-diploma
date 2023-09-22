@@ -6,7 +6,7 @@ function PageNotFound() {
   const path = useNavigate()
 
   function goNavigatePath() {
-    path(-3)
+    path(-1)
   }
 
   return (
